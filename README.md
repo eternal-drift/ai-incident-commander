@@ -71,4 +71,4 @@ This is decision support, not an authoritative system. It will not contact emerg
 
 ## License
 
-TBD.
+MIT - see [LICENSE](LICENSE).
