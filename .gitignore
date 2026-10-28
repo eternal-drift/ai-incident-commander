@@ -32,3 +32,12 @@ yarn-error.log*
 # misc
 coverage/
 .turbo/
+
+# .NET
+backend/bin/
+backend/obj/
+backend/*.db
+backend/*.db-shm
+backend/*.db-wal
+
+# frontend build output already covered by dist/ above

@@ -1,0 +1,189 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  background: #0f1115;
+  color: #e6e8eb;
+}
+
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.header h1 {
+  margin-bottom: 4px;
+}
+
+.header p {
+  color: #9aa0a6;
+  margin-top: 0;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.intake,
+.board {
+  background: #171a21;
+  border: 1px solid #272b33;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: #c7cad1;
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: #0f1115;
+  border: 1px solid #30343d;
+  border-radius: 6px;
+  color: #e6e8eb;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+form button {
+  background: #3a7bfd;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+form button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.error {
+  color: #ff6b6b;
+  margin-top: 12px;
+}
+
+.empty {
+  color: #6b7280;
+}
+
+.verification {
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.verification-pass {
+  background: #10351f;
+  border: 1px solid #1d5d35;
+}
+
+.verification-warn {
+  background: #3a2f10;
+  border: 1px solid #6b5518;
+}
+
+.verification-block {
+  background: #3a1414;
+  border: 1px solid #6b1d1d;
+}
+
+.verification ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  font-size: 13px;
+}
+
+ul.facts,
+ul.unknowns,
+ul.hypotheses,
+ul.actions {
+  list-style: none;
+  padding: 0;
+}
+
+ul.facts li,
+ul.unknowns li,
+ul.hypotheses li {
+  padding: 10px 0;
+  border-bottom: 1px solid #22262e;
+  font-size: 14px;
+}
+
+ul.actions li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #22262e;
+  gap: 12px;
+}
+
+.tag {
+  display: inline-block;
+  background: #272b33;
+  color: #9aa0a6;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 12px;
+  margin-right: 6px;
+}
+
+.confidence,
+.sources,
+.owner,
+.risk {
+  display: inline-block;
+  color: #6b7280;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.decision-buttons {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.decision-buttons button {
+  border: 1px solid #30343d;
+  background: #0f1115;
+  color: #e6e8eb;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.decision-label {
+  text-transform: capitalize;
+  font-size: 13px;
+  color: #9aa0a6;
+  flex-shrink: 0;
+}
+
+.decision-approved {
+  opacity: 0.85;
+}
+
+.decision-rejected {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
