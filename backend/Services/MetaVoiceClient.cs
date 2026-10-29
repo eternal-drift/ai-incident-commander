@@ -1,11 +1,13 @@
+using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 
 namespace IncidentCommander.Api.Services;
 
-// Assumes a Whisper-style multipart upload endpoint (file + model -> {"text": "..."}).
-// Same caveat as the other two Meta clients - verify against real docs once we
-// have a key to test with.
+// Meta's ASR endpoint: POST /v1/asr/transcribe, multipart with a JSON "request"
+// part (mode/model/audioEncoding) and an "audio" file part. Audio must be
+// mono 16-bit PCM WAV at 16kHz or 24kHz. Response has the text at "transcript".
+// See https://dev.meta.ai/docs/speech-to-text.
 public class MetaVoiceClient : IVoiceModelClient
 {
     private readonly HttpClient _http;
@@ -28,12 +30,21 @@ public class MetaVoiceClient : IVoiceModelClient
         }
 
         using var content = new MultipartFormDataContent();
+
+        var requestSettings = JsonSerializer.Serialize(new
+        {
+            mode = "PUSH_TO_TALK",
+            model = _options.VoiceModel,
+            audioEncoding = "WAV",
+        });
+        var requestPart = new StringContent(requestSettings, Encoding.UTF8, "application/json");
+        content.Add(requestPart, "request");
+
         var fileContent = new ByteArrayContent(audioBytes);
         fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
-        content.Add(fileContent, "file", "evidence-audio");
-        content.Add(new StringContent(_options.VoiceModel), "model");
+        content.Add(fileContent, "audio", "evidence-audio.wav");
 
-        using var request = new HttpRequestMessage(HttpMethod.Post, $"{_options.BaseUrl.TrimEnd('/')}/audio/transcriptions")
+        using var request = new HttpRequestMessage(HttpMethod.Post, $"{_options.BaseUrl.TrimEnd('/')}/asr/transcribe")
         {
             Content = content,
         };
@@ -64,8 +75,8 @@ public class MetaVoiceClient : IVoiceModelClient
         try
         {
             using var doc = JsonDocument.Parse(body);
-            return doc.RootElement.GetProperty("text").GetString()
-                   ?? throw new MetaModelException("Transcription response had no text.");
+            return doc.RootElement.GetProperty("transcript").GetString()
+                   ?? throw new MetaModelException("Transcription response had no transcript.");
         }
         catch (JsonException ex)
         {

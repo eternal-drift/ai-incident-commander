@@ -8,9 +8,9 @@ public class MetaModelOptions
     public const string SectionName = "MetaModel";
 
     public string BaseUrl { get; set; } = "https://api.meta.ai/v1";
-    public string Model { get; set; } = "muse-spark";
-    public string ImageModel { get; set; } = "muse-image";
-    public string VoiceModel { get; set; } = "muse-voice-transcribe";
+    public string Model { get; set; } = "muse-spark-1.3";
+    public string ImageModel { get; set; } = "muse-spark-1.3";
+    public string VoiceModel { get; set; } = "muse-voice-transcribe-1.0";
     public string ApiKey { get; set; } = string.Empty;
     public int TimeoutSeconds { get; set; } = 60;
 }
