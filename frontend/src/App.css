@@ -187,3 +187,88 @@ ul.actions li {
   opacity: 0.6;
   text-decoration: line-through;
 }
+
+form input[type="file"] {
+  padding: 6px;
+  background: #0f1115;
+}
+
+ul.evidence {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+ul.evidence li {
+  padding: 8px 0;
+  border-bottom: 1px solid #22262e;
+  font-size: 14px;
+}
+
+.evidence-type {
+  display: inline-block;
+  color: #9aa0a6;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-right: 8px;
+}
+
+.evidence-failed {
+  color: #ff6b6b;
+}
+
+.edit-textarea {
+  width: 100%;
+  margin: 6px 0;
+  padding: 6px 8px;
+  background: #0f1115;
+  border: 1px solid #30343d;
+  border-radius: 6px;
+  color: #e6e8eb;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.audit-toggle {
+  margin-top: 20px;
+}
+
+.audit-toggle button {
+  border: 1px solid #30343d;
+  background: #0f1115;
+  color: #9aa0a6;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+ul.audit-log {
+  list-style: none;
+  padding: 0;
+  margin-top: 12px;
+}
+
+ul.audit-log li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #1a1d23;
+  font-size: 12px;
+  color: #9aa0a6;
+}
+
+.audit-time {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.audit-actor {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.audit-detail {
+  overflow-wrap: anywhere;
+}

@@ -46,12 +46,25 @@ export interface IncidentPlan {
   verification: Verification;
 }
 
+export type EvidenceType = "text" | "image" | "audio";
+export type EvidenceStatus = "ready" | "failed";
+
+export interface EvidenceItem {
+  id: string;
+  type: EvidenceType;
+  description: string;
+  storedFileName: string | null;
+  originalFileName: string | null;
+  status: EvidenceStatus;
+}
+
 export interface IncidentDetail {
   id: string;
   title: string;
   severity: Severity;
   report: string;
   createdAt: string;
+  evidence: EvidenceItem[];
   plan: IncidentPlan | null;
 }
 
@@ -60,4 +73,11 @@ export interface IncidentSummary {
   title: string;
   severity: Severity;
   createdAt: string;
+}
+
+export interface AuditEntry {
+  timestamp: string;
+  eventType: string;
+  actor: string;
+  detail: string;
 }

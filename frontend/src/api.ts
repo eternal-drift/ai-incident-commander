@@ -1,4 +1,4 @@
-import type { ActionDecision, IncidentDetail, IncidentSummary } from "./types";
+import type { ActionDecision, AuditEntry, IncidentDetail, IncidentSummary } from "./types";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:5080";
 
@@ -25,6 +25,10 @@ export function listIncidents(): Promise<IncidentSummary[]> {
 
 export function getIncident(id: string): Promise<IncidentDetail> {
   return fetch(`${API_BASE}/api/incidents/${id}`).then((r) => handle(r));
+}
+
+export function getAudit(id: string): Promise<AuditEntry[]> {
+  return fetch(`${API_BASE}/api/incidents/${id}/audit`).then((r) => handle(r));
 }
 
 export function createIncident(input: {
