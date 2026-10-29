@@ -69,9 +69,7 @@ public class IncidentPlanVerifier
             }
         }
 
-        // Contradiction check: same fact id content disagreeing is for a model-assisted
-        // pass later. For now we only flag facts that directly contradict each other via
-        // near-duplicate text with opposite confidence, which is intentionally conservative.
+        findings.AddRange(FindContradictions(plan.Facts));
 
         var status = findings.Count == 0 ? "pass" : HasBlockingFinding(findings) ? "block" : "warn";
 
@@ -80,4 +78,52 @@ public class IncidentPlanVerifier
 
     private static bool HasBlockingFinding(List<string> findings) =>
         findings.Any(f => f.Contains("unsupported action") || f.Contains("unknown fact id") || f.Contains("unknown evidence id"));
+
+    // Deliberately dumb keyword-opposite check, not real NLP contradiction
+    // detection. It's here so two facts that flatly disagree ("service is up"
+    // vs "service is down") get flagged as a warning instead of silently
+    // feeding both into the same plan. False positives are expected and
+    // fine - better to over-flag than to assert false certainty.
+    private static readonly (string A, string B)[] OppositePairs =
+    [
+        ("online", "offline"),
+        ("up", "down"),
+        ("increased", "decreased"),
+        ("open", "closed"),
+        ("confirmed", "unconfirmed"),
+        ("present", "absent"),
+        ("working", "broken"),
+        ("resolved", "unresolved"),
+        ("stable", "unstable"),
+    ];
+
+    private static List<string> FindContradictions(List<Fact> facts)
+    {
+        var findings = new List<string>();
+
+        for (var i = 0; i < facts.Count; i++)
+        {
+            for (var j = i + 1; j < facts.Count; j++)
+            {
+                var a = facts[i].Text.ToLowerInvariant();
+                var b = facts[j].Text.ToLowerInvariant();
+
+                foreach (var (word, opposite) in OppositePairs)
+                {
+                    var aHasWord = a.Contains(word) && !b.Contains(word);
+                    var bHasOpposite = b.Contains(opposite) && !a.Contains(opposite);
+                    var aHasOpposite = a.Contains(opposite) && !b.Contains(opposite);
+                    var bHasWord = b.Contains(word) && !a.Contains(word);
+
+                    if ((aHasWord && bHasOpposite) || (aHasOpposite && bHasWord))
+                    {
+                        findings.Add(
+                            $"Facts {facts[i].Id} and {facts[j].Id} may contradict each other (\"{word}\" vs \"{opposite}\") - treat as unresolved, don't average them into one conclusion.");
+                    }
+                }
+            }
+        }
+
+        return findings;
+    }
 }

@@ -39,5 +39,6 @@ backend/obj/
 backend/*.db
 backend/*.db-shm
 backend/*.db-wal
+backend/uploads/
 
 # frontend build output already covered by dist/ above

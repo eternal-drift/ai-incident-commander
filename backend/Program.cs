@@ -19,7 +19,11 @@ builder.Services.PostConfigure<MetaModelOptions>(options =>
 });
 
 builder.Services.AddHttpClient<IMetaModelClient, MetaModelClient>();
+builder.Services.AddHttpClient<IVisionModelClient, MetaVisionClient>();
+builder.Services.AddHttpClient<IVoiceModelClient, MetaVoiceClient>();
 builder.Services.AddSingleton<IncidentPlanVerifier>();
+builder.Services.AddSingleton<EvidenceStorage>();
+builder.Services.AddScoped<AuditLogger>();
 
 var dbPath = builder.Configuration.GetConnectionString("Default") ?? "Data Source=incidents.db";
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(dbPath));
