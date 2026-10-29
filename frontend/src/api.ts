@@ -31,11 +31,19 @@ export function createIncident(input: {
   title: string;
   severity: string;
   report: string;
+  image?: File;
+  audio?: File;
 }): Promise<IncidentDetail> {
+  const form = new FormData();
+  form.set("title", input.title);
+  form.set("severity", input.severity);
+  form.set("report", input.report);
+  if (input.image) form.set("image", input.image);
+  if (input.audio) form.set("audio", input.audio);
+
   return fetch(`${API_BASE}/api/incidents`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input),
+    body: form,
   }).then((r) => handle(r));
 }
 
