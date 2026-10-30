@@ -1,0 +1,5 @@
+bin/
+obj/
+uploads/
+incidents.db
+incidents.db-*

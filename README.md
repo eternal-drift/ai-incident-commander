@@ -59,6 +59,17 @@ npm run dev
 
 Open the printed localhost URL (`http://localhost:5173`), fill in the intake form, and submit.
 
+### Docker
+
+```bash
+export META_MODEL_API_KEY="your-key-here"
+docker compose up --build
+```
+
+Backend on `http://localhost:5288`, frontend on `http://localhost:5173` (deliberately mapped to
+5173 on the host so the browser's `Origin` header matches the backend's CORS allowlist).
+SQLite data and uploaded evidence persist in named Docker volumes across restarts.
+
 ## Design notes / known limitations
 
 Short version of the non-obvious calls made so far, so nobody has to reverse-engineer them from the diff:
@@ -68,6 +79,34 @@ Short version of the non-obvious calls made so far, so nobody has to reverse-eng
 - **The verifier is deterministic-only right now.** It checks that every fact/hypothesis/action cites a real evidence or fact id, forces `requiresApproval = true` on every action no matter what the model says, and blocks on missing references. A second, model-assisted pass for semantic contradiction detection (e.g. two facts that disagree without an id mismatch) is deferred to Day 2/3 per the build plan - the spec only requires evidence grounding, not full contradiction reasoning, for the MVP.
 - **Persistence is one `Incident` row with the plan stored as a JSON blob column**, not a normalized schema with separate tables for facts/hypotheses/actions. Fine for a demo-scale SQLite database with a handful of seeded incidents; would need to change for anything long-lived or queryable at scale.
 - **Audit log exists on the backend but has no UI yet.** Every incident creation, plan generation, evidence processing, and approve/reject/edit decision is appended as an immutable `AuditEntry` row (see `AuditLogger.cs`), retrievable via `GET /api/incidents/{id}/audit`. The plan JSON itself is still overwritten per decision - the audit trail is what preserves history, not the plan blob.
+
+## Evaluation
+
+Three scripted cases covering clear, conflicting, and incomplete evidence - see
+[`demo/cases/README.md`](demo/cases/README.md) for the exact inputs and how to re-run them.
+Each was submitted through the real running app against a live Meta Model API key; nothing
+below is simulated or hand-written.
+
+| Case | Evidence condition | Evidence grounding | Unsupported actions | Contradiction handling | All actions require approval | Verifier |
+|---|---|---|---|---|---|---|
+| 1 - Checkout OOMKilled | Clear, all modalities agree | 10/10 (100%) | 0 | n/a - no conflict present | yes | pass |
+| 2 - Suspected DB replica lag | Conflicting (operator says healthy, dashboard shows degraded) | 11/11 (100%) | 0 | Flagged as an explicit unknown (U1) instead of silently picking a side | yes | pass |
+| 3 - "Something weird with checkout" | Incomplete (vague report, no files) | 9/9 (100%) | 0 | n/a - no conflict present | yes | pass |
+
+"Evidence grounding" here means every fact cites a real evidence ID, every hypothesis cites a
+real fact ID, and every action cites a real fact ID - counted directly from the plan JSON each
+case actually returned, not estimated.
+
+**Limitations observed:**
+- The verifier is deterministic-only (schema + ID-reference checks). It would not catch a
+  case where the model cited a real fact ID but the citation was semantically wrong - that
+  would need a second model-assisted pass, which is out of scope for this submission.
+- Case 2's contradiction handling depends on the model noticing the conflict unprompted; there
+  is no code-level contradiction detector forcing it. It worked in this run, but isn't
+  guaranteed on every phrasing of a conflicting case.
+- Latency: text-only plan generation (case 3) returns in a few seconds; cases with an image and
+  audio attachment (1 and 2) take longer end-to-end because of the extra sequential vision and
+  transcription calls before plan generation starts.
 
 ## Safety notes
 

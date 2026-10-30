@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5288:5288"
+    environment:
+      - META_MODEL_API_KEY=${META_MODEL_API_KEY}
+      - ConnectionStrings__Default=Data Source=/app/data/incidents.db
+    volumes:
+      - backend-data:/app/data
+      - backend-uploads:/app/uploads
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE: http://localhost:5288
+    # Mapped to host port 5173 so the browser's Origin header matches the
+    # backend's CORS policy (backend/Program.cs allows only
+    # http://localhost:5173 - see README for why).
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  backend-data:
+  backend-uploads:
