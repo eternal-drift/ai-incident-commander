@@ -59,6 +59,18 @@ npm run dev
 
 Open the printed localhost URL (`http://localhost:5173`), fill in the intake form, and submit.
 
+### Tests
+
+```bash
+cd backend.Tests
+dotnet test
+```
+
+17 unit tests covering the deterministic verifier (evidence grounding, unknown-id blocking,
+the forced `requiresApproval` override, and the keyword-opposite contradiction check) and the
+evidence storage layer (file size/type limits, filename sanitization against path traversal).
+No live API key needed - these don't call the Meta Model API.
+
 ### Docker
 
 ```bash

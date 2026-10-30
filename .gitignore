@@ -40,5 +40,7 @@ backend/*.db
 backend/*.db-shm
 backend/*.db-wal
 backend/uploads/
+backend.Tests/bin/
+backend.Tests/obj/
 
 # frontend build output already covered by dist/ above
