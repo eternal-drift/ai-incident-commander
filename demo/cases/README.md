@@ -53,8 +53,8 @@ curl -X POST http://localhost:5288/api/incidents \
   -F "title=Checkout pods OOMKilled - steady memory climb" \
   -F "severity=high" \
   -F "report=Checkout pods have been restarting every 20-30 minutes since 09:15 UTC due to OOMKilled events. Memory usage climbs steadily from 200MB to the 2GB limit over each cycle. Last deploy was 18 hours ago (unrelated feature flag change). Request rate has been flat all morning per our load balancer dashboard - this does not look like a traffic-driven spike." \
-  -F "image=@demo/cases/case1-memory-graph.png;type=image/png" \
-  -F "audio=@demo/cases/case1-voice-note.wav;type=audio/wav"
+  -F "image=@research/demo/cases/case1-memory-graph.png;type=image/png" \
+  -F "audio=@research/demo/cases/case1-voice-note.wav;type=audio/wav"
 ```
 
 Swap in `case2-*` / `case3-*` and the corresponding title/severity/report from above for the

@@ -95,7 +95,7 @@ Short version of the non-obvious calls made so far, so nobody has to reverse-eng
 ## Evaluation
 
 Three scripted cases covering clear, conflicting, and incomplete evidence - see
-[`demo/cases/README.md`](demo/cases/README.md) for the exact inputs and how to re-run them.
+[`research/demo/cases/README.md`](research/demo/cases/README.md) for the exact inputs and how to re-run them.
 Each was submitted through the real running app against a live Meta Model API key; nothing
 below is simulated or hand-written.
 
