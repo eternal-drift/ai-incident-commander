@@ -89,13 +89,23 @@ function App() {
   return (
     <div className="layout">
       <header className="header">
-        <h1>AI Incident Commander</h1>
-        <p>Decision support for incident response. Every action needs a human sign-off.</p>
+        <div>
+          <p className="eyebrow">Incident response workspace</p>
+          <h1>AI Incident Commander</h1>
+          <p>Evidence-grounded decisions for high-stakes operational incidents.</p>
+        </div>
+        <div className="human-control"><span />Human approval required</div>
       </header>
 
       <div className="columns">
         <section className="intake">
-          <h2>Report an incident</h2>
+          <div className="panel-heading">
+            <div>
+              <p className="eyebrow">New incident</p>
+              <h2>Report an incident</h2>
+            </div>
+            <span className="step">01</span>
+          </div>
           <form onSubmit={handleSubmit}>
             <label>
               Title
@@ -125,7 +135,7 @@ function App() {
             </label>
 
             <label>
-              Image evidence (optional)
+              <span>Image evidence <em>optional</em></span>
               <input
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
@@ -134,7 +144,7 @@ function App() {
             </label>
 
             <label>
-              Audio evidence (optional)
+              <span>Voice note <em>optional</em></span>
               <input
                 type="file"
                 accept="audio/mpeg,audio/wav,audio/mp4,audio/ogg,audio/webm"
@@ -151,8 +161,21 @@ function App() {
         </section>
 
         <section className="board">
-          <h2>Command board</h2>
-          {!incident && <p className="empty">Submit an incident to see the plan here.</p>}
+          <div className="panel-heading">
+            <div>
+              <p className="eyebrow">Analysis output</p>
+              <h2>Command board</h2>
+            </div>
+            <span className="step">02</span>
+          </div>
+          {!incident && (
+            <div className="empty-state">
+              <div className="empty-icon">✦</div>
+              <h3>Your response plan will appear here</h3>
+              <p>Submit an incident to generate traceable facts, uncertainty, hypotheses, and human-approved actions.</p>
+              <div className="empty-legend"><span>Evidence</span><span>Verification</span><span>Human decision</span></div>
+            </div>
+          )}
 
           {incident && incident.plan && (
             <>
