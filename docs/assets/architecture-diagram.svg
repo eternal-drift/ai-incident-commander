@@ -1,0 +1,92 @@
+<!-- Public documentation asset for the project architecture. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">AI Incident Commander architecture</title>
+  <desc id="desc">Text report, screenshot, and voice note flow through Meta Model API into an evidence-grounded plan, deterministic verifier, human decision, and audit log.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081226"/>
+      <stop offset="1" stop-color="#111c3d"/>
+    </linearGradient>
+    <linearGradient id="meta" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7b61ff"/>
+      <stop offset="1" stop-color="#2d9cff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M 1 1 L 11 6 L 1 11 z" fill="#90a4ce"/>
+    </marker>
+    <style>
+      .title { font-family: Inter, Arial, sans-serif; font-size: 48px; font-weight: 700; fill: #f6f8ff; }
+      .subtitle { font-family: Inter, Arial, sans-serif; font-size: 22px; fill: #b8c6e5; }
+      .label { font-family: Inter, Arial, sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 1.6px; fill: #aebee5; }
+      .node-title { font-family: Inter, Arial, sans-serif; font-size: 24px; font-weight: 700; fill: #f6f8ff; }
+      .node-text { font-family: Inter, Arial, sans-serif; font-size: 18px; fill: #c7d3ed; }
+      .small { font-family: Inter, Arial, sans-serif; font-size: 16px; fill: #b8c6e5; }
+      .pill { font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 700; fill: #e9edff; }
+    </style>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <circle cx="1590" cy="-30" r="430" fill="#2847aa" opacity="0.16"/>
+  <circle cx="-80" cy="980" r="410" fill="#6845ca" opacity="0.13"/>
+
+  <text x="110" y="115" class="title">AI Incident Commander</text>
+  <text x="110" y="155" class="subtitle">Multimodal evidence, grounded recommendations, human control</text>
+
+  <text x="110" y="250" class="label">INCIDENT EVIDENCE</text>
+  <g filter="url(#shadow)">
+    <rect x="110" y="280" width="330" height="130" rx="20" fill="#162646" stroke="#2a426e" stroke-width="2"/>
+    <rect x="110" y="450" width="330" height="130" rx="20" fill="#162646" stroke="#2a426e" stroke-width="2"/>
+    <rect x="110" y="620" width="330" height="130" rx="20" fill="#162646" stroke="#2a426e" stroke-width="2"/>
+  </g>
+  <text x="145" y="332" class="node-title">Operator report</text>
+  <text x="145" y="370" class="node-text">Symptoms, timeline, context</text>
+  <text x="145" y="502" class="node-title">Monitoring screenshot</text>
+  <text x="145" y="540" class="node-text">Visible state and signals</text>
+  <text x="145" y="672" class="node-title">On-call voice note</text>
+  <text x="145" y="710" class="node-text">Spoken field evidence</text>
+
+  <text x="605" y="250" class="label">META MODEL API — LIVE CALLS</text>
+  <g filter="url(#shadow)">
+    <rect x="600" y="280" width="390" height="190" rx="24" fill="url(#meta)"/>
+    <rect x="600" y="530" width="390" height="190" rx="24" fill="url(#meta)"/>
+  </g>
+  <rect x="630" y="307" width="138" height="31" rx="15" fill="#172451" opacity="0.48"/>
+  <text x="651" y="329" class="pill">MUSE SPARK</text>
+  <text x="630" y="382" class="node-title">Describe screenshot</text>
+  <text x="630" y="420" class="node-text">Extract only visible, relevant facts</text>
+  <rect x="630" y="557" width="248" height="31" rx="15" fill="#172451" opacity="0.48"/>
+  <text x="651" y="579" class="pill">MUSE VOICE TRANSCRIBE</text>
+  <text x="630" y="632" class="node-title">Transcribe voice note</text>
+  <text x="630" y="670" class="node-text">Convert speech into evidence text</text>
+
+  <text x="1160" y="250" class="label">EVIDENCE-GROUNDED DECISION LOOP</text>
+  <g filter="url(#shadow)">
+    <rect x="1155" y="280" width="600" height="150" rx="24" fill="#1b315a" stroke="#4e78c9" stroke-width="2"/>
+    <rect x="1155" y="480" width="600" height="120" rx="24" fill="#153f49" stroke="#3d9a9b" stroke-width="2"/>
+    <rect x="1155" y="650" width="285" height="140" rx="24" fill="#263653" stroke="#637ba8" stroke-width="2"/>
+    <rect x="1470" y="650" width="285" height="140" rx="24" fill="#263653" stroke="#637ba8" stroke-width="2"/>
+  </g>
+  <text x="1190" y="333" class="node-title">Muse Spark: structured incident plan</text>
+  <text x="1190" y="370" class="node-text">Facts · unknowns · hypotheses · proposed actions</text>
+  <text x="1190" y="526" class="node-title">Deterministic verifier</text>
+  <text x="1190" y="563" class="node-text">Checks citations · requires human approval · warns on direct opposites</text>
+  <text x="1500" y="704" class="node-title">Human decision</text>
+  <text x="1500" y="740" class="node-text">Approve · reject · edit</text>
+  <text x="1190" y="704" class="node-title">Audit log</text>
+  <text x="1190" y="740" class="node-text">Traceable history</text>
+
+  <path d="M440 345 H545 V375 H590" fill="none" stroke="#90a4ce" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M440 515 H535 V375 H590" fill="none" stroke="#90a4ce" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M440 685 H590" fill="none" stroke="#90a4ce" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M990 375 H1105 V355 H1145" fill="none" stroke="#90a4ce" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M990 625 H1060 V355 H1145" fill="none" stroke="#90a4ce" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M1455 430 V470" fill="none" stroke="#90a4ce" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M1440 600 V625 H1612 V640" fill="none" stroke="#90a4ce" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M1612 790 V850 H1297 V800" fill="none" stroke="#90a4ce" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <rect x="110" y="900" width="1645" height="74" rx="18" fill="#13233f" stroke="#2a426e" stroke-width="2"/>
+  <text x="145" y="945" class="node-text">Design principle: recommendations are traceable to evidence, uncertainty remains visible, and every action needs a human sign-off.</text>
+</svg>
