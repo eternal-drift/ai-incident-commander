@@ -20,12 +20,10 @@ Core loop runs end to end against a live Meta Model API key: text intake, image 
 - [x] Audio evidence extraction (transcription via Muse Voice Transcribe)
 - [x] Verifier (schema + evidence-reference checks)
 - [x] Command board UI
-- [x] Approve/reject flow (backend also supports edit; no UI for it yet)
-- [x] Audit log (backend endpoint; no UI for it yet)
-- [ ] File upload UI for image/audio evidence (backend + API client support it; the intake form has no file inputs yet)
-- [ ] Edit-action UI (backend supports `edited` decisions; only Approve/Reject buttons exist)
-- [ ] Audit log UI (backend serves the full trail; nothing in the frontend displays it yet)
-- [ ] Seeded demo cases
+- [x] Approve/reject/edit flow (Approve, Reject, and Edit buttons all in the UI)
+- [x] Audit log (toggleable "Show audit log" panel in the UI)
+- [x] File upload UI for image/audio evidence (file inputs in the intake form)
+- [x] Seeded demo cases (`demo/cases/`, with copy-ready text in `demo/cases/demo-data.md`)
 - [ ] Evaluation results (clear/conflicting/incomplete evidence cases)
 
 ## Stack
