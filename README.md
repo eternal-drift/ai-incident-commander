@@ -8,6 +8,8 @@ Built for the Meta Global AI Developer Hackathon.
 
 When something goes wrong, the hard part usually isn't gathering evidence - it's deciding what to do with it fast, without just trusting a confident-sounding guess. This project tries to keep an AI model useful in that loop while making sure every recommendation can be traced back to something real: a fact, a timestamp, an uploaded image, a line in a transcript.
 
+<img width="9126" height="6561" alt="diagram" src="https://github.com/user-attachments/assets/af0319a7-75ad-4684-a0c2-a000f4f630b7" />
+
 ## Status
 
 Core loop runs end to end against a live Meta Model API key: text intake, image and audio evidence extraction, plan generation, the deterministic verifier, and human approve/reject decisions all work. A few things are still open before this is demo-ready - see the checklist below.
